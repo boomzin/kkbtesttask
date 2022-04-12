@@ -12,5 +12,7 @@ public interface TaskMapper {
 
     TaskDto toTaskDto(Task task);
 
+    Task dtoToTask(TaskDto taskDto);
+
     List<TaskDto> toListTaskDto(List<Task> tasks);
 }

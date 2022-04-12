@@ -86,7 +86,7 @@ public class Task implements Persistable<Integer> {
         this.status = status;
     }
 
-    public void setBusinessData(String secret) {
-        this.businessData = secret;
+    public void setBusinessData(String businessData) {
+        this.businessData = businessData;
     }
 }
