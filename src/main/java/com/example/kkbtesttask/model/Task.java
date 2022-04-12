@@ -37,6 +37,10 @@ public class Task implements Persistable<Integer> {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(name = "business_data")
+    private String businessData;
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -66,6 +70,10 @@ public class Task implements Persistable<Integer> {
         return status;
     }
 
+    public String getBusinessData() {
+        return businessData;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -76,5 +84,9 @@ public class Task implements Persistable<Integer> {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public void setBusinessData(String secret) {
+        this.businessData = secret;
     }
 }
