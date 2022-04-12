@@ -6,6 +6,7 @@ CREATE TABLE task
     name        VARCHAR               NOT NULL,
     description VARCHAR               NOT NULL,
     status      status DEFAULT 'OPEN' NOT NULL,
+    business_data    VARCHAR,
     PRIMARY KEY (id)
 );
 
