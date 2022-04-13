@@ -2,10 +2,19 @@ package com.example.kkbtesttask.dto;
 
 import com.example.kkbtesttask.model.Status;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class TaskDto {
 
     private Integer id;
+
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String name;
+
+    @NotBlank
+    @Size(max = 50)
     private String description;
     private Status status;
 

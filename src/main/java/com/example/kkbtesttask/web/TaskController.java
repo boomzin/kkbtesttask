@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class TaskController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TaskDto> createWithLocation(@RequestBody TaskDto task) {
+    public ResponseEntity<TaskDto> createWithLocation(@Valid @RequestBody TaskDto task) {
         log.info("create {}", task.getName());
         TaskDto created = service.create(task);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -54,7 +55,7 @@ public class TaskController {
 
     @Transactional
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public HttpStatus update(@RequestBody TaskDto taskDto, @PathVariable int id) {
+    public HttpStatus update(@Valid @RequestBody TaskDto taskDto, @PathVariable int id) {
         log.info("update task with id={}", id);
         service.update(taskDto, id);
         return HttpStatus.OK;

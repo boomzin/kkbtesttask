@@ -37,7 +37,6 @@ public class TaskService {
                 () -> new IllegalRequestDataException("Task with id=" + id + " does not exist")));
     }
 
-    // TODO add check fields not null
     public TaskDto create(TaskDto taskDto) {
         log.info("create {}", taskDto.getName());
         if (taskDto.getId() != null) {
@@ -66,7 +65,9 @@ public class TaskService {
         Task updated = repository.getById(id);
         updated.setName(taskDto.getName());
         updated.setDescription(taskDto.getDescription());
-        updated.setStatus(taskDto.getStatus());
+        if (taskDto.getStatus() != null) {
+            updated.setStatus(taskDto.getStatus());
+        }
         repository.save(updated);
     }
 }
