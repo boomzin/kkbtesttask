@@ -1,6 +1,7 @@
 package com.example.kkbtesttask.service;
 
 import com.example.kkbtesttask.dto.TaskDto;
+import com.example.kkbtesttask.error.IllegalRequestDataException;
 import com.example.kkbtesttask.model.Status;
 import com.example.kkbtesttask.model.Task;
 import com.example.kkbtesttask.repository.TaskRepository;
@@ -30,15 +31,18 @@ public class TaskService {
         return mapper.toListTaskDto(repository.findAll(Sort.by(Sort.Direction.ASC, "status", "name")));
     }
 
-    //TODO check if not exist
     public TaskDto getById(int id) {
         log.info("get task {}", id);
-        return mapper.toTaskDto(repository.findById(id).get());
+        return mapper.toTaskDto(repository.findById(id).orElseThrow(
+                () -> new IllegalRequestDataException("Task with id=" + id + " does not exist")));
     }
 
-    // TODO add check new
+    // TODO add check fields not null
     public TaskDto create(TaskDto taskDto) {
         log.info("create {}", taskDto.getName());
+        if (taskDto.getId() != null) {
+            throw new IllegalRequestDataException("Task must be new (id=null)");
+        }
         taskDto.setStatus(Status.OPEN);
         Task task = mapper.dtoToTask(taskDto);
         task.setBusinessData("Some new business data");
@@ -51,11 +55,14 @@ public class TaskService {
         return repository.delete(id) != 0;
     }
 
-
-    // TODO add check id
     @Transactional
     public void update(TaskDto taskDto, int id) {
         log.info("update task with id={}", id);
+        if (taskDto.getId() == null) {
+            taskDto.setId(id);
+        } else if (taskDto.getId() != id) {
+            throw new IllegalRequestDataException("Task must has id=" + id);
+        }
         Task updated = repository.getById(id);
         updated.setName(taskDto.getName());
         updated.setDescription(taskDto.getDescription());

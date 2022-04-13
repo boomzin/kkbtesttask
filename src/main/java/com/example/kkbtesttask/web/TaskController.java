@@ -30,7 +30,6 @@ public class TaskController {
         return service.getAll();
     }
 
-    // TODO Add message if not found
     @GetMapping("/{id}")
     public TaskDto get(@PathVariable int id) {
         log.info("get task {}", id);
@@ -55,8 +54,9 @@ public class TaskController {
 
     @Transactional
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void update(@RequestBody TaskDto taskDto, @PathVariable int id) {
+    public HttpStatus update(@RequestBody TaskDto taskDto, @PathVariable int id) {
         log.info("update task with id={}", id);
         service.update(taskDto, id);
+        return HttpStatus.OK;
     }
 }
