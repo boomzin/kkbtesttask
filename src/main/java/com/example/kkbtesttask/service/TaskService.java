@@ -62,7 +62,8 @@ public class TaskService {
         } else if (taskDto.getId() != id) {
             throw new IllegalRequestDataException("Task must has id=" + id);
         }
-        Task updated = repository.getById(id);
+        Task updated = repository.findById(id).orElseThrow(
+                () -> new IllegalRequestDataException("Task with id=" + id + " does not exist"));
         updated.setName(taskDto.getName());
         updated.setDescription(taskDto.getDescription());
         if (taskDto.getStatus() != null) {
