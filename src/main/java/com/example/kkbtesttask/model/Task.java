@@ -1,6 +1,7 @@
 package com.example.kkbtesttask.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.util.ProxyUtils;
 
@@ -9,11 +10,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "task")
 @Access(AccessType.FIELD)
+@Schema(description = "Сущность задачи")
 public class Task implements Persistable<Integer> {
 
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
     private Integer id;
 
     @Override
@@ -35,9 +38,11 @@ public class Task implements Persistable<Integer> {
 
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Schema(defaultValue = "OPEN")
     private Status status;
 
     @Column(name = "business_data")
+    @Schema(description = "Поле только для иллюстрации разницы между сущностью модели данных и transfer object")
     private String businessData;
 
 

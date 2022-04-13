@@ -1,10 +1,12 @@
 package com.example.kkbtesttask.dto;
 
 import com.example.kkbtesttask.model.Status;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Schema(description = "Transfer Object")
 public class TaskDto {
 
     private Integer id;
