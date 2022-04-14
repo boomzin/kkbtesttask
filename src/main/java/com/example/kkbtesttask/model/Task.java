@@ -45,6 +45,16 @@ public class Task implements Persistable<Integer> {
     @Schema(description = "Поле только для иллюстрации разницы между сущностью модели данных и transfer object")
     private String businessData;
 
+    public Task() {
+    }
+
+    public Task(Integer id, String name, String description, Status status, String businessData) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.businessData = businessData;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -77,6 +87,10 @@ public class Task implements Persistable<Integer> {
 
     public String getBusinessData() {
         return businessData;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {
